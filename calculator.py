@@ -1,3 +1,4 @@
+import math
 def add(x, y):
   return x + y
 
@@ -13,18 +14,22 @@ def divide(x, y):
   else:
     return x / y
 
+def power(x, y):
+   return x ** y
+
 print("Select operation:")
 print("1. Add")
 print("2. Subtract")
 print("3. Multiply")
 print("4. Divide")
+print("5. Exponential")
 
 while True:
     # Take input from the user
-    choice = input("Enter choice(1/2/3/4): ")
+    choice = input("Enter choice(1/2/3/4/5): ")
 
     # Check if choice is one of the four options
-    if choice in ('1', '2', '3', '4'):
+    if choice in ('1', '2', '3', '4', '5'):
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
@@ -36,6 +41,8 @@ while True:
             print(num1, "*", num2, "=", multiply(num1, num2))
         elif choice == '4':
             print(num1, "/", num2, "=", divide(num1, num2))
+        elif choice == '5':  # Add choice 5 for exponents
+            print(num1, "^", num2, "=", power(num1, num2)) 
         break
     else:
         print("Invalid Input")
