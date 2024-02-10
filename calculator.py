@@ -52,11 +52,9 @@ def convert_units(value, from_unit, to_unit):
         return "Invalid units"
 
     try:
-        # Find the categories first
         from_category = next((cat for cat in conversion_factors if from_unit in conversion_factors[cat]), None)
         to_category = next((cat for cat in conversion_factors if to_unit in conversion_factors[cat]), None)
 
-        # Ensure units are in the same category
         if from_category != to_category: 
             return "Cannot convert between different categories"
 
@@ -68,7 +66,13 @@ def convert_units(value, from_unit, to_unit):
     except ZeroDivisionError:
         return "Cannot convert to the same unit"
 
-# Calculator Main Loop
+# Function to display result stylishly
+def display_result(result):
+    print("-" * 20 + "Result" + "-" * 20)
+    print("Result:", result)
+    print("-" * 20 + "End Here" + "-" * 20)
+
+# Calculator Main Loop 
 while True:
     print("Select operation:")
     print("1. Add")
@@ -89,28 +93,33 @@ while True:
             num2 = float(input("Enter second number: "))
 
             if choice == '1':
-                print(num1, "+", num2, "=", add(num1, num2))
+                result = add(num1, num2)
             elif choice == '2':
-                print(num1, "-", num2, "=", subtract(num1, num2))
+                result = subtract(num1, num2)
             elif choice == '3':
-                print(num1, "*", num2, "=", multiply(num1, num2))
+                result = multiply(num1, num2)
             elif choice == '4':
-                print(num1, "/", num2, "=", divide(num1, num2))
+                result = divide(num1, num2)
             elif choice == '8':
-                print(num1, "^", num2, "=", power(num1, num2)) 
+                result = power(num1, num2)
+
+            display_result(result)
 
         except ValueError:
             print("Invalid input. Please enter numbers only.")
 
     elif choice in ('5', '6', '7'):
         try:
-            num = float(input("Enter angle in degrees: "))
+            angle = float(input("Enter the angle in degrees: "))
             if choice == '5':
-                print("sin(", num, ") =", sine(num))
+                result = sine(angle)
             elif choice == '6':
-                print("cos(", num, ") =", cosine(num))
+                result = cosine(angle)
             elif choice == '7':
-                print("tan(", num, ") =", tangent(num))
+                result = tangent(angle)
+
+            display_result(result)
+            
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -120,7 +129,7 @@ while True:
 
             print("Select type of conversion:")
             for key in conversion_factors:
-                print(key)  # Print available categories (e.g., length, weight)
+                print(key)  
 
             category = input("Enter category: ").lower()
 
@@ -131,9 +140,11 @@ while True:
                 result = convert_units(value, from_unit, to_unit)
 
                 if result is not None: 
-                    print(value, from_unit, "=", result, to_unit)
+                    print("-" * 20 + "Result" + "-" * 20)
+                    print("Result:", result)
+                    print("-" * 20 + "End Here" + "-" * 20)
                 else:
-                    print(result)  # Print error message from convert_units
+                    print("Conversion error")  # Print error message from convert_units
             else:
                 print("Invalid category")
 
